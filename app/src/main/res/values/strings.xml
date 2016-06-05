@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Foursquareexample</string>
+    <string-array name="tabs">
+        <item>Shopping</item>
+        <item>Food</item>
+        <item>Nightlife</item>
+    </string-array>
+
+    <string-array name="name">
+        <item>Title 1</item>
+        <item>Title 2</item>
+        <item>Title 3</item>
+        <item>Title 4</item>
+        <item>Title 5</item>
+        <item>Title 6</item>
+        <item>Title 7</item>
+        <item>Title 8</item>
+        <item>Title 9</item>
+        <item>Title 10</item>
+
+    </string-array>
+
+    <string name="connected_to_foursquare">Hey looks like you’re connected to Foursquare!</string>
+    <string name="app_not_installed_message">To do this, you’ll need the latest version of Foursquare installed.</string>
+
+
+    <integer-array name="ratings">
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+
+    </integer-array>
+
+    <string-array name="address">
+        <item>This is Description 1</item>
+        <item>This is Description 2</item>
+        <item>This is Description 3</item>
+        <item>This is Description 4</item>
+        <item>This is Description 5</item>
+        <item>This is Description 6</item>
+        <item>This is Description 7</item>
+        <item>This is Description 8</item>
+        <item>This is Description 9</item>
+        <item>This is Description 10</item>
+    </string-array>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

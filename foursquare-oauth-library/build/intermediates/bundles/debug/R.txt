@@ -1,0 +1,3 @@
+int id frame 0x7f040000
+int layout loading 0x7f020000
+int string loading 0x7f030000

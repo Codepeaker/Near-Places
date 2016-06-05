@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/D:/AndroidStudioProjects/foursquare-android-oauth-master/foursquare-oauth-library/build/intermediates/bundles/debug/res/values/values.xml -->
+    <eat-comment/>
+    <string name="loading">Talking to Foursquare servers…</string>
+</resources>

@@ -1,0 +1,115 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.1.0'
+    }
+}
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION
+    buildToolsVersion BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
+    }
+}
+
+def isReleaseBuild() {
+    return VERSION_NAME.contains("SNAPSHOT") == false
+}
+
+signing {
+    required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                if(!hasProperty('mavenUser')){
+                    ext.mavenUser =''
+                }
+                if(!hasProperty('mavenPassword')){
+                    ext.mavenPassword = ''
+                }
+                authentication(userName: mavenUser, password: mavenPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                if(!hasProperty('mavenUser')){
+                    ext.mavenUser =''
+                }
+                if(!hasProperty('mavenPassword')){
+                    ext.mavenPassword = ''
+                }
+                authentication(userName: mavenUser, password: mavenPassword)
+            }
+
+
+            pom.project {
+
+                parent {
+                    groupId 'org.sonatype.oss'
+                    artifactId 'oss-parent'
+                    version '7'
+                }
+
+
+                groupId GROUP_ID
+                artifactId ARTIFACT_ID
+                version VERSION_NAME
+
+                packaging 'apklib'
+
+                name 'Foursquare native OAuth for Android'
+                description 'Foursquare native authentication library makes it easier for your app\'s users to connect with Foursquare.'
+                url 'https://github.com/foursquare/foursquare-android-oauth'
+
+                scm {
+                    url 'https://github.com/foursquare/foursquare-android-oauth'
+                    connection 'scm:git:git://github.com/foursquare/foursquare-android-oauth.git'
+                    developerConnection 'scm:git:git@github.com:foursquare/foursquare-android-oauth.git'
+                    tag 'HEAD'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'foursquare'
+                        name 'Foursquare'
+                    }
+                }
+
+                issueManagement {
+                    system 'GitHub Issues'
+                    url 'https://github.com/foursquare/foursquare-android-oauth/issues'
+                }
+
+                dependencies {
+                    dependency {
+                        groupId 'com.google.android'
+                        artifactId 'android'
+                        version '4.1.1.4'
+                    }
+                }
+            }
+        }
+    }
+}
