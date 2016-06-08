@@ -13,17 +13,23 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Cache;
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.jar.JarException;
 
 import badhiyajobs.foursquareexample.AdapterList;
@@ -61,6 +67,9 @@ public class FragmentFood extends Fragment {
     private String mParam1;
     private String mParam2;
     private ProgressDialog pDialog;
+    public FragmentFood(){
+
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,13 +166,50 @@ public class FragmentFood extends Fragment {
 
                        hidepDialog();
                     }
-                });
+                }
+
+
+                );
         AppController.getInstance().addToRequestQueue(jsonObjectRequest);
 
 
         return data;
     }
 
+    /*
+
+    public static Cache.Entry parseIgnoreCacheHeaders(NetworkResponse response){
+        long now = System.currentTimeMillis();
+
+        Map<String, String> headers = response.headers;
+        long serverDate = 0;
+        String serverEtag = null;
+        String headerValue;
+
+        headerValue = headers.get("Date");
+        if (headerValue != null) {
+            serverDate = HttpHeaderParser.parseDateAsEpoch(headerValue);
+        }
+
+        serverEtag = headers.get("ETag");
+
+        final long cacheHitButRefreshed = 3 * 60 * 1000; // in 3 minutes cache will be hit, but also refreshed on background
+        final long cacheExpired = 24 * 60 * 60 * 1000; // in 24 hours this cache entry expires completely
+        final long softExpire = now + cacheHitButRefreshed;
+        final long ttl = now + cacheExpired;
+
+        Cache.Entry entry = new Cache.Entry();
+        entry.data = response.data;
+        entry.etag = serverEtag;
+        entry.softTtl = softExpire;
+        entry.ttl = ttl;
+        entry.serverDate = serverDate;
+        entry.responseHeaders = headers;
+
+        return entry;
+    }
+
+    */
 
     private void showpDialog() {
         if (!pDialog.isShowing())
